@@ -55,7 +55,7 @@ if __name__ == "__main__":
 
     common  = ["--container", args.container, "--dataset-version", args.dataset_version]
     stage_args = [
-        ["--split", args.split, "--limit", str(args.limit)] + common,
+        ["--split", args.split, "--limit", str(args.limit)],
         common,
         ["--multiplier", str(args.multiplier)] + common,
     ]
