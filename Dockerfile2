@@ -1,0 +1,24 @@
+FROM python:3.12-slim
+
+LABEL description="Data generator for transcription service load testing"
+
+RUN apt-get update && apt-get install -y \
+    libsndfile1 \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY scripts/ ./scripts/
+COPY run_demo.py .
+
+# Environment variables — override at runtime
+ENV SERVICE_ENDPOINT="http://localhost:8000"
+ENV REQUEST_RATE="5"
+ENV DURATION_SEC="300"
+
+# Default: run against a real service endpoint
+ENTRYPOINT ["python3", "scripts/generate_requests.py"]
+CMD ["--help"]
