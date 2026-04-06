@@ -1,0 +1,24 @@
+FROM python:3.12-slim
+
+LABEL description="Online feature extraction service for ASR inference"
+
+RUN apt-get update && apt-get install -y \
+    libsndfile1 \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY scripts/ ./scripts/
+
+# Port for feature service
+EXPOSE 8001
+
+# MODEL_ENDPOINT — set this to forward features to your ASR model
+# e.g. http://whisper-service:8000
+ENV MODEL_ENDPOINT=""
+ENV PORT=8001
+
+CMD ["python3", "scripts/feature_service.py"]
