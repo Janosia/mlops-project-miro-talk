@@ -1,0 +1,6 @@
+datasets==4.8.4
+huggingface_hub==1.9.0
+python-swiftclient==4.6.0
+python-keystoneclient==5.8.0
+soundfile==0.12.1
+numpy==2.4.4
