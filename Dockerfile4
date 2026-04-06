@@ -1,0 +1,23 @@
+FROM python:3.12-slim
+
+LABEL description="Batch pipeline for compiling versioned training/eval datasets"
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY scripts/ ./scripts/
+
+ARG GIT_SHA=unknown
+ENV GIT_SHA=${GIT_SHA}
+
+# Chameleon credentials — pass at runtime, never bake in
+ENV OS_AUTH_URL=""
+ENV OS_PROJECT_ID=""
+ENV OS_AUTH_TOKEN=""
+ENV OS_STORAGE_URL=""
+ENV OS_REGION="CHI@TACC"
+
+ENTRYPOINT ["python3", "scripts/batch_pipeline.py"]
+CMD ["--help"]
