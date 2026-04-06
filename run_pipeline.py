@@ -53,9 +53,10 @@ if __name__ == "__main__":
                         help="Start from stage N (1=ingest, 2=preprocess, 3=synthetic)")
     args = parser.parse_args()
 
-    common  = ["--container", args.container, "--dataset-version", args.dataset_version]
+    common         = ["--container", args.container, "--dataset-version", args.dataset_version]
+    ingest_args    = ["--container", args.container, "--split", args.split, "--limit", str(args.limit)]
     stage_args = [
-        ["--split", args.split, "--limit", str(args.limit)],
+        ingest_args,
         common,
         ["--multiplier", str(args.multiplier)] + common,
     ]
