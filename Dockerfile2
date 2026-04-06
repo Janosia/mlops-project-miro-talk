@@ -11,9 +11,9 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY scripts/ ./scripts/
 COPY run_demo.py .
-
+COPY scripts/ ./scripts/
+COPY scripts_datagenerator/ ./scripts_datagenerator/
 # Environment variables — override at runtime
 ENV SERVICE_ENDPOINT="http://localhost:8000"
 ENV REQUEST_RATE="5"
